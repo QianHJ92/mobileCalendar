@@ -1,0 +1,201 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body,html{
+    -webkit-font-smoothing: antialiased;
+    overflow: auto;
+}
+body{
+    padding-bottom: 0.5rem;
+}
+.calendar{
+    width: 100%;
+    float: left;
+    padding-bottom: 0.2rem;
+}
+.calendar_header{
+    width: 100%;
+    background-color: #333333;
+    height: 0.72rem;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 0.4rem;
+}
+.calendar_header .today{
+    position: absolute;
+    top: 0.4rem;
+    right: 0.2rem;
+    overflow: hidden;
+}
+.calendar_header .curDate{
+
+}
+.calendar_date{
+    width: 100%;
+    padding: 0.2rem 0;
+}
+.calendar_date .week{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: start;
+    font-size: 12px;
+    margin-bottom: 0.1rem;
+}
+.calendar_date .week li{
+    text-align: center;
+    width: 14.2%;
+    color: #aaa;
+}
+.calendar_date .days{
+    width: 100%;
+}
+/*.calendar_date .slideCalendar{*/
+    /*height: 0.5rem;*/
+/*}*/
+.calendar_date .days ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    font-size: 16px;
+    overflow: hidden;
+}
+.calendar_date .days ul li{
+    height: 0.4rem;
+    box-sizing: border-box;
+}
+.calendar_date .days .cur{
+    background: url("../images/blueBg.png") no-repeat center center;
+    background-size: contain;
+    background-clip: border-box;
+    color: white;
+    font-weight: bold;
+}
+.calendar_date .days .flag:after{
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 0.03rem solid #ff9600;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.calendar_date .days .selected{
+    background: url("../images/whitebg.png") no-repeat center center;
+    background-size: contain;
+    background-clip: border-box;
+    color: #466cab;
+}
+.calendar_date .days li{
+    text-align: center;
+    width: 14.2%;
+    padding: 0.1rem 0;
+    color: #000;
+}
+.arrowUp:after{
+    content:"";
+    width: 0.1rem;
+    height: 0.1rem;
+    display: block;
+    margin: 0 auto;
+    border-top: 0.01rem solid #2e5593;
+    border-right: 0.01rem solid #2e5593;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.arrowUp:last-child:after{
+    border-top: 0.01rem solid #6d89aa;
+    border-right: 0.01rem solid #6d89aa;
+    margin: -0.06rem auto;
+}
+.slided:after{
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+section{
+    width: 100%;
+    float: left;
+}
+section .nav{
+    width: 100%;
+    border-top: 0.02rem solid #e3e4e5;
+    border-bottom: 0.02rem solid #bcbdbe;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 0.1rem 0;
+    box-shadow: 0 0.02rem 0.02rem #bcbdbe;
+    color: #333;
+}
+.nav li{
+
+}
+.content_list{
+    width: 100%;
+    overflow: auto;
+}
+.content{
+    overflow: hidden;
+    height: 0.74rem;
+    border-bottom: 0.01rem solid #f1f2f3;
+    padding: 0.06rem 0.05rem 0 0.2rem;
+    box-sizing: border-box;
+}
+.content .content_left{
+    float: left;
+}
+.content h2{
+    font-size: 20px;
+}
+.content p{
+    font-size: 13px;
+    color: #9a9998;
+}
+.content .operator{
+    color: #0c87a0;
+}
+.content .assign{
+    color: #db9d4c;
+}
+.content .content_right{
+    float: right;
+    color: #98999a;
+    font-size: 14px;
+}
+.content_right .more{
+    padding-top: 0.2rem;
+    padding-left: 0.2rem;
+}
+.content_right .more span:after{
+    content: "";
+    display:inline-block;
+    border: 0.02rem solid #98999a;
+    border-radius: 50%;
+}
+footer{
+    width: 100%;
+    height: 0.5rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    border-top: 0.02rem solid #e3e4e5;
+    padding: 0.1rem 0;
+    box-sizing: border-box;
+    background-color: #feffff;
+}
+footer ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    color: #98999a;
+}
+

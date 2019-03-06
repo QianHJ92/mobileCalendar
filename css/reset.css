@@ -1,0 +1,12 @@
+/*媒体查询单独设置字体*/
+@media screen and (max-width:321px){
+    body{font-size:15px}
+}
+
+@media screen and (min-width:321px) and (max-width:400px){
+    body{font-size:16px}
+}
+
+@media screen and (min-width:400px){
+    body{font-size:18px}
+}

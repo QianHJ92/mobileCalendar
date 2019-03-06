@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>calendar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="calendar">
+    <div class="calendar_header">
+        <span class="curDate">1970-01-01</span>
+        <span class="today">今天</span>
+    </div>
+    <div class="calendar_date">
+        <ul class="week">
+            <li>日</li>
+            <li>一</li>
+            <li>二</li>
+            <li>三</li>
+            <li>四</li>
+            <li>五</li>
+            <li>六</li>
+        </ul>
+    </div>
+    <div class="slide">
+        <span class="arrowUp"></span>
+        <span class="arrowUp"></span>
+    </div>
+</div>
+<section>
+    <ul class="nav">
+        <li>已设置提醒</li>
+        <li>创建时间</li>
+        <li>最后发言时间</li>
+    </ul>
+    <div class="content_list">
+        <div class="content">
+            <div class="content_left">
+                <h2>227市场</h2>
+                <p>定价依据和客户经理</p>
+                <p class="operator">我的角色：经办人</p>
+            </div>
+            <div class="content_right">
+                <span>16：24</span>
+                <div class="more">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content_left">
+                <h2>新软件</h2>
+                <p>成立体验小组，测试软件</p>
+                <p class="assign">我的角色：交办人</p>
+            </div>
+            <div class="content_right">
+                <span>16：24</span>
+                <div class="more">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content_left">
+                <h2>2-3-6手提项目</h2>
+                <p>236手提灭火器项目，10月西药提交给需求方</p>
+                <p class="assign">我的角色：交办人</p>
+            </div>
+            <div class="content_right">
+                <span>16：24</span>
+                <div class="more">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content_left">
+                <h2>消防资格考试</h2>
+                <p>考试纲要，考试时间，考试地点</p>
+                <p class="assign">我的角色：交办人</p>
+            </div>
+            <div class="content_right">
+                <span>16：24</span>
+                <div class="more">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content_left">
+                <h2>消防资格考试</h2>
+                <p>考试纲要，考试时间，考试地点</p>
+                <p class="assign">我的角色：交办人</p>
+            </div>
+            <div class="content_right">
+                <span>16：24</span>
+                <div class="more">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <ul>
+        <li>工作</li>
+        <li>角色</li>
+        <li>事项圈</li>
+        <li>同事</li>
+        <li>日历</li>
+    </ul>
+</footer>
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/EventUtil.js"></script>
+<script src="js/Calendar.js"></script>
+<script>
+    //动态设置html font-size
+    let deviceWidth=document.documentElement.clientWidth;
+    if(deviceWidth > 640) deviceWidth = 640;
+    document.documentElement.style.fontSize=deviceWidth/3.6 + "px";
+    //日历初始化显示
+    let date=new Calendar();
+    date.today();
+    calendarUpdate();
+    //获取当前日期并格式化
+    $(".curDate").text(date.format());
+    //当前日期处理
+    date.getCurDay(function (val) {
+        $(val).siblings().removeClass("cur");
+        $(val).addClass("cur");
+    });
+    //监听今天按钮点击
+    $(".today").click(function () {
+        date.today();
+        calendarUpdate();
+        date.getCurDay(function (val) {
+            $(val).siblings().removeClass("cur");
+            $(val).addClass("cur");
+        });
+        $(".arrowUp").removeClass("slided")
+    });
+    //监听日期选择
+    $(".calendar_date").delegate(".days li","click",function () {
+        let siblings1=$(this).parents().siblings().children();
+        let siblings2=$(this).siblings();
+        if($(this).text() && !$(this).hasClass("cur"))
+        {
+            siblings1.removeClass("selected");
+            siblings2.removeClass("selected");
+            $(this).addClass("selected");
+        }
+    });
+    //处理日历收起
+    function slideUp(calendar){
+        //获取除当前周外其余周信息
+        let remainWeek=date.getRemainWeek();
+        calendar.stop();
+        if(!calendar.hasClass("slideCalendar"))
+        {
+            calendar.addClass("slideCalendar");
+            $.each(remainWeek,function (index,value) {
+                $(value).slideUp();
+                $(".arrowUp").addClass("slided")
+            })
+        }
+    }
+    function slideDown(calendar){
+        //获取除当前周外其余周信息
+        let remainWeek=date.getRemainWeek();
+        calendar.stop();
+        if(calendar.hasClass("slideCalendar"))
+        {
+            calendar.removeClass("slideCalendar");
+            $.each(remainWeek,function (index,value) {
+                $(value).slideDown();
+                $(".arrowUp").removeClass("slided")
+            })
+        }
+    }
+    function weekDisplay(calendar){
+        //初始化日历显示
+        calendar.children("ul").css({
+            display:""
+        });
+        //获取除当前周外其余周信息
+        let remainWeek=date.getRemainWeek();
+        calendar.stop();
+        $.each(remainWeek,function (index,value) {
+            $(value).css({
+                display:"none"
+            });
+        });
+    }
+    // let height=$(".days ul").height();
+    $(".slide").click(function () {
+        let calendar=$(".calendar_date .days");
+        // calendar.toggleClass("slideCalendar");
+        if(calendar.hasClass("slideCalendar"))
+        {
+            slideDown(calendar);
+        }
+        else {
+            slideUp(calendar);
+        }
+    });
+    //处理日历更新
+    function calendarUpdate() {
+        //获取当前月天数并填入日历
+        let daysNums=date.getDaysNum();
+        let firstWeekday=date.getWeekday(1);
+        let oDays="<div class=\"days\"></div>";
+        $(".calendar_date").append(oDays);
+        for(let i=0;i<daysNums+firstWeekday;i++)
+        {
+            if(i % 7===0)
+            {
+                let oUl="<ul></ul>";
+                $(".days").append(oUl);
+            }
+            if(i<firstWeekday)
+            {
+                let oEmpty="<li></li>";
+                $(".days ul:last").append(oEmpty);
+            }
+            else {
+                let oDay=`<li>${i-firstWeekday+1}</li>`;
+                $(".days ul:last").append(oDay);
+            }
+        }
+    }
+    /**
+     * 处理手机触摸事件
+     */
+    dealTouchEvent();
+    function dealTouchEvent() {
+        EventUtil.listenTouchDirection($(document), myUp, myDown);
+        EventUtil.listenTouchDirection($(".calendar_date"), myUp=null, myDown=null, myRight, myLeft);
+    }
+    /**
+     * 左滑操作
+     */
+    function myLeft() {
+        console.log("左滑");
+        //如果当前日历是收起状态
+        let calendar=$(".calendar_date .days");
+        if(calendar.hasClass("slideCalendar"))
+        {
+            //显示下一周
+            date.nextWeek();
+            // calendarUpdate();
+            weekDisplay(calendar);
+        }
+        else
+        {
+            //显示下一月
+            date.nextMonth();
+            calendarUpdate();
+
+        }
+        event.stopPropagation();
+    }
+
+    /**
+     * 上滑操作
+     */
+    function myUp() {
+        console.log("向上滑动");
+        let calendar=$(".calendar_date .days");
+        slideUp(calendar);
+    }
+
+    /**
+     * 下滑操作
+     */
+    function myDown() {
+        console.log("向下滑动");
+        let calendar=$(".calendar_date .days");
+        slideDown(calendar);
+    }
+
+    /**
+     * 右滑操作
+     */
+    function myRight() {
+        console.log("右滑");
+        //如果当前日历是收起状态
+        let calendar=$(".calendar_date .days");
+        if(calendar.hasClass("slideCalendar"))
+        {
+            //显示上一周
+            date.prevWeek();
+            // calendarUpdate();
+            weekDisplay(calendar);
+        }
+        else
+        {
+            //显示上一月
+            date.prevMonth();
+            calendarUpdate();
+        }
+    }
+
+</script>
+</body>
+</html>
